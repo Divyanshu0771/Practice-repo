@@ -1,0 +1,835 @@
+============================================================
+                    GIT MASTER CHEAT SHEET
+============================================================
+
+------------------------------------------------------------
+1. MOST IMPORTANT COMMANDS
+------------------------------------------------------------
+
+git init
+→ Start Git in the current folder.
+
+git status
+→ Check what is happening in the repository.
+
+git add .
+→ Stage all changed/untracked files.
+
+git add filename
+→ Stage one specific file.
+
+git commit -m "message"
+→ Save the staged changes as a new version.
+
+git log
+→ See commit history.
+
+git push
+→ Send your local commits to GitHub.
+
+git pull
+→ Get the latest changes from GitHub.
+
+git clone URL
+→ Download a GitHub repository to your computer.
+
+
+------------------------------------------------------------
+2. BASIC GIT WORKFLOW
+------------------------------------------------------------
+
+Write/modify code
+       ↓
+git status
+       ↓
+git add .
+       ↓
+git commit -m "message"
+       ↓
+git push
+       ↓
+GitHub
+
+
+------------------------------------------------------------
+3. GIT vs GITHUB vs VS CODE
+------------------------------------------------------------
+
+VS Code
+→ Where you write your code.
+
+Git
+→ Tracks changes and saves versions of your project.
+
+Git Bash
+→ Terminal where you type Git commands.
+
+GitHub
+→ Online platform where you can store/share your Git
+  repository.
+
+VS Code Source Control
+→ Visual interface for using Git inside VS Code.
+
+GitHub Desktop
+→ GUI application for using Git/GitHub.
+  NOT necessary while learning Git.
+
+
+------------------------------------------------------------
+4. REPOSITORY
+------------------------------------------------------------
+
+Repository (repo)
+→ A project that is being tracked by Git.
+
+git init
+→ Creates a Git repository in the current folder.
+
+After git init:
+
+project/
+├── .git/
+├── file1
+└── file2
+
+.git
+→ Git's internal folder.
+→ Do NOT manually delete or modify it.
+
+
+------------------------------------------------------------
+5. CHECKING YOUR REPOSITORY
+------------------------------------------------------------
+
+git status
+→ Shows:
+  - untracked files
+  - modified files
+  - staged files
+  - current branch
+
+ls
+→ Shows files/folders in Git Bash.
+
+ls -a
+→ Shows normal + hidden files/folders.
+
+pwd
+→ Shows your current directory/location.
+
+cd foldername
+→ Enter a folder.
+
+cd ..
+→ Go one folder back.
+
+
+------------------------------------------------------------
+6. GIT ADD
+------------------------------------------------------------
+
+git add filename
+→ Stage one file.
+
+git add .
+→ Stage all changes in the current directory.
+
+Example:
+
+index.html
+README.md
+
+git add index.html
+→ Only index.html is staged.
+
+git add .
+→ Both files are staged.
+
+
+------------------------------------------------------------
+7. STAGING AREA
+------------------------------------------------------------
+
+When you modify a file:
+
+Working Directory
+       ↓
+     git add
+       ↓
+Staging Area
+       ↓
+   git commit
+       ↓
+Git Repository
+
+
+Working Directory
+→ Your actual files and current changes.
+
+Staging Area
+→ Changes selected for the next commit.
+
+Repository
+→ Git's saved history.
+
+
+------------------------------------------------------------
+8. GIT COMMIT
+------------------------------------------------------------
+
+git commit -m "message"
+
+→ Saves the staged changes as a new version/snapshot.
+
+Example:
+
+git add .
+git commit -m "Added login page"
+
+Important:
+
+git add
+→ Prepare changes.
+
+git commit
+→ Save those prepared changes.
+
+
+------------------------------------------------------------
+9. GIT LOG
+------------------------------------------------------------
+
+git log
+→ Shows detailed commit history.
+
+git log --oneline
+→ Shows a shorter version of commit history.
+
+Example:
+
+a82f91 Added login page
+b71c20 Created homepage
+c54d12 Initial commit
+
+
+------------------------------------------------------------
+10. BRANCHES
+------------------------------------------------------------
+
+git branch
+→ See all branches.
+
+git branch features
+→ Create a branch called features.
+
+git switch features
+→ Move to the features branch.
+
+git switch -c features
+→ Create AND immediately switch to features.
+
+
+Example:
+
+master
+   ↓
+   A
+   ↓
+   B
+
+Create features:
+
+master
+   ↓
+   A
+   ↓
+   B
+   ↓
+features
+
+
+A branch gives you a separate line of development.
+
+
+------------------------------------------------------------
+11. MERGE
+------------------------------------------------------------
+
+git merge branchname
+→ Bring another branch's changes into the branch
+  you are currently on.
+
+
+Example 1:
+
+You are currently on master:
+
+git switch master
+git merge features
+
+Meaning:
+
+features changes
+       ↓
+     master
+
+
+Example 2:
+
+You are currently on features:
+
+git switch features
+git merge master
+
+Meaning:
+
+master changes
+       ↓
+    features
+
+
+IMPORTANT:
+
+git merge OTHER_BRANCH
+        ↓
+OTHER_BRANCH's changes
+        ↓
+come into CURRENT branch.
+
+
+------------------------------------------------------------
+12. MERGE EXAMPLE
+------------------------------------------------------------
+
+Initially:
+
+master
+├── index.html
+├── style.css
+└── script.js
+
+Create features:
+
+master
+├── index.html
+├── style.css
+└── script.js
+
+features
+├── index.html
+├── style.css
+└── script.js
+
+
+On features:
+
+Add login.html
+
+Now:
+
+features
+├── index.html
+├── style.css
+├── script.js
+└── login.html
+
+
+Then:
+
+git switch master
+git merge features
+
+Now master also gets login.html.
+
+
+------------------------------------------------------------
+13. IMPORTANT MERGE RULE
+------------------------------------------------------------
+
+The branch you are CURRENTLY ON is the branch
+that receives the changes.
+
+git switch master
+git merge features
+
+→ master receives features changes.
+
+
+git switch features
+git merge master
+
+→ features receives master changes.
+
+
+------------------------------------------------------------
+14. GIT STASH
+------------------------------------------------------------
+
+git stash
+→ Temporarily stores your uncommitted changes.
+
+Use it when:
+
+"I have unfinished work but I don't want to commit it yet."
+
+
+Example:
+
+You modify index.html.
+
+git stash
+
+Your changes are temporarily stored.
+
+Now you can switch branches or do other work.
+
+Later:
+
+git stash pop
+
+Your changes come back.
+
+
+------------------------------------------------------------
+15. GIT STASH LIST
+------------------------------------------------------------
+
+git stash list
+→ Shows all currently stored stashes.
+
+Example:
+
+stash@{0}
+stash@{1}
+stash@{2}
+
+stash@{0}
+→ Newest stash.
+
+stash@{2}
+→ Older stash.
+
+
+Think of stash as a drawer:
+
+STASH DRAWER
+----------------
+stash@{0}  ← newest
+stash@{1}
+stash@{2}  ← oldest
+----------------
+
+
+------------------------------------------------------------
+16. STASH POP vs STASH APPLY
+------------------------------------------------------------
+
+git stash pop
+
+→ Bring changes back.
+→ Remove that stash from the stash list.
+
+POP = Restore + Remove
+
+
+git stash apply
+
+→ Bring changes back.
+→ Keep the stash in the stash list.
+
+APPLY = Restore + Keep
+
+
+Simple difference:
+
+pop
+→ take it out
+
+apply
+→ use it but keep the stored copy
+
+
+------------------------------------------------------------
+17. STASH PUSH
+------------------------------------------------------------
+
+git stash
+and
+git stash push
+
+→ Basically the same basic operation.
+
+You can use:
+
+git stash push -m "login page work"
+
+→ Stash your changes and give the stash a message.
+
+Then:
+
+git stash list
+
+You may see:
+
+stash@{0}: On features: login page work
+
+
+------------------------------------------------------------
+18. UNTRACKED FILES + STASH
+------------------------------------------------------------
+
+Suppose you create a completely new file:
+
+new.java
+
+but you have NOT added it.
+
+Normal:
+
+git stash
+
+may not stash that untracked file.
+
+To include untracked files:
+
+git stash -u
+
+
+------------------------------------------------------------
+19. GITHUB REMOTE
+------------------------------------------------------------
+
+Remote
+→ A connection between your local Git repository and
+  another repository, usually GitHub.
+
+git remote -v
+→ See connected remote repositories.
+
+git remote add origin URL
+→ Connect your local repository to GitHub.
+
+origin
+→ Common name given to the GitHub remote.
+
+
+------------------------------------------------------------
+20. GIT PUSH
+------------------------------------------------------------
+
+git push
+→ Send your local commits to GitHub.
+
+Example:
+
+Your computer
+     ↓
+git push
+     ↓
+GitHub
+
+
+First push may commonly be:
+
+git push -u origin main
+
+After that, usually:
+
+git push
+
+
+------------------------------------------------------------
+21. GIT PULL
+------------------------------------------------------------
+
+git pull
+→ Get changes from GitHub and bring them into your
+  current local branch.
+
+GitHub
+   ↓
+git pull
+   ↓
+Your computer
+
+
+Difference:
+
+git push
+→ Local → GitHub
+
+git pull
+→ GitHub → Local
+
+
+------------------------------------------------------------
+22. GIT CLONE
+------------------------------------------------------------
+
+git clone URL
+
+→ Download an existing GitHub repository to your computer.
+
+GitHub
+   ↓
+git clone
+   ↓
+Your computer
+
+
+Example:
+
+git clone https://github.com/username/project.git
+
+
+------------------------------------------------------------
+23. GIT DIFF
+------------------------------------------------------------
+
+git diff
+
+→ Shows changes that you made but have NOT staged yet.
+
+
+Example:
+
+Original:
+
+Hello
+
+You changed it to:
+
+Hello World
+
+git diff
+
+→ Shows what changed.
+
+
+------------------------------------------------------------
+24. UNSTAGE A FILE
+------------------------------------------------------------
+
+git restore --staged filename
+
+→ Remove a file from the staging area.
+
+IMPORTANT:
+
+This does NOT normally delete your changes.
+
+It simply means:
+
+"I don't want this file included in my next commit
+right now."
+
+
+------------------------------------------------------------
+25. DELETE A FILE WITH GIT
+------------------------------------------------------------
+
+git rm filename
+
+→ Delete the file and stage the deletion.
+
+Example:
+
+git rm oldfile.txt
+
+
+------------------------------------------------------------
+26. .gitignore
+------------------------------------------------------------
+
+.gitignore
+→ Tells Git which files/folders it should NOT track.
+
+Example:
+
+node_modules/
+.env
+*.class
+
+Useful for:
+
+- passwords/secrets
+- temporary files
+- generated files
+- dependencies
+
+
+------------------------------------------------------------
+27. IMPORTANT TERMS
+------------------------------------------------------------
+
+File
+→ A piece of data/code such as:
+  index.html
+  Main.java
+  script.py
+
+Folder / Directory
+→ A container that can contain files/folders.
+
+Repository / Repo
+→ Project managed by Git.
+
+.git
+→ Git's internal repository folder.
+
+Commit
+→ A saved version/snapshot.
+
+Branch
+→ Separate line of development.
+
+Remote
+→ Connection to another repository.
+
+GitHub
+→ Online hosting/service for Git repositories.
+
+Staging
+→ Preparing changes for the next commit.
+
+Working Directory
+→ Your current project files.
+
+Untracked
+→ Git sees a new file but is not tracking it yet.
+
+Modified
+→ A tracked file has been changed.
+
+Staged
+→ A change has been selected for the next commit.
+
+
+------------------------------------------------------------
+28. MOST IMPORTANT MENTAL MODEL
+------------------------------------------------------------
+
+                 YOUR COMPUTER
+                      |
+                    VS CODE
+                      |
+                  WRITE CODE
+                      |
+                      ↓
+              WORKING DIRECTORY
+                      |
+                   git add
+                      ↓
+                STAGING AREA
+                      |
+                 git commit
+                      ↓
+              LOCAL GIT REPO
+                      |
+                  git push
+                      ↓
+                   GITHUB
+
+
+Coming back:
+
+GITHUB
+   |
+git pull
+   ↓
+LOCAL GIT REPOSITORY
+
+
+------------------------------------------------------------
+29. COMMANDS TO MEMORIZE FIRST
+------------------------------------------------------------
+
+1.  git status
+2.  git add .
+3.  git commit -m "message"
+4.  git push
+5.  git pull
+6.  git clone URL
+7.  git branch
+8.  git switch branch
+9.  git switch -c branch
+10. git merge branch
+11. git stash
+12. git stash pop
+13. git log
+14. git diff
+15. git remote -v
+
+
+------------------------------------------------------------
+30. THE BASIC DEVELOPER WORKFLOW
+------------------------------------------------------------
+
+1. Open project in VS Code.
+
+2. Check status:
+
+   git status
+
+3. Write/modify code.
+
+4. Check changes:
+
+   git status
+
+5. Stage changes:
+
+   git add .
+
+6. Commit:
+
+   git commit -m "Describe what you changed"
+
+7. Send to GitHub:
+
+   git push
+
+8. If someone else changed the GitHub repository:
+
+   git pull
+
+
+------------------------------------------------------------
+31. SIMPLE RULES TO REMEMBER
+------------------------------------------------------------
+
+git add
+→ Prepare changes.
+
+git commit
+→ Save changes locally.
+
+git push
+→ Send commits to GitHub.
+
+git pull
+→ Get changes from GitHub.
+
+git branch
+→ Work on separate lines.
+
+git switch
+→ Move between branches.
+
+git merge
+→ Combine another branch into your current branch.
+
+git stash
+→ Temporarily put unfinished changes away.
+
+git stash pop
+→ Bring them back and remove the stash.
+
+git stash apply
+→ Bring them back but keep the stash.
+
+
+============================================================
+                    END OF CHEAT SHEET
+============================================================
